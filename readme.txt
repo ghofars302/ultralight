@@ -1,4 +1,7 @@
- ___________________
+=================================================================
+About this fork: gonna port this to Etterna
+=================================================================
+___________________
 |            SSC-ULT| spinal shark collective release information
 |                   | product    code: SSC-ULT
 | the spinal shark  | product    type: stepmania theme
