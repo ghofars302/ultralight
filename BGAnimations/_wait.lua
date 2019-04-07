@@ -1,5 +1,10 @@
 local time = ...
 assert(time)
 return Def.ActorFrame{
-	Def.Actor{ OnCommand=cmd(sleep,time); };
+	
+	Def.Actor{
+		 OnCommand=function(self)
+			self:sleep(time)
+		end
+	};
 };

@@ -1,6 +1,10 @@
 return Font("mentone", "24px")..{
-	InitCommand=cmd(shadowlength,0;halign,0;zoom,0.5);
-	BeginCommand=cmd(playcommand,"Set");
+	InitCommand=function(self)
+		self:shadowlength(0):halign(0):zoom(0.5)
+	end;
+	BeginCommand=function(self)
+		self:playcommand("Set")
+	end;
 
 	SetCommand=function(self)
 		local sText = GAMESTATE:GetSongOptionsString()
@@ -13,5 +17,7 @@ return Font("mentone", "24px")..{
 		end
 		--]]
 	end;
-	SongOptionsChangedMessageCommand=cmd(playcommand,"Set");
+	SongOptionsChangedMessageCommand=function(self)
+		self:playcommand("Set")
+	end;
 };

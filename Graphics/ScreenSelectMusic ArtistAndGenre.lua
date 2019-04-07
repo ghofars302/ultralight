@@ -1,7 +1,9 @@
 local t = Def.ActorFrame{
 	Font("mentone","24px") .. {
 		Name="Above"; -- was Artist
-		InitCommand=cmd(y,-8;zoom,0.8;horizalign,left;vertalign,bottom;NoStroke;shadowlength,1;maxwidth,SCREEN_CENTER_X*0.75);
+		InitCommand=function(self)
+			self:y(-8):zoom(0.8):horizalign(left):vertalign(bottom):NoStroke():shadowlength(1):maxwidth(SCREEN_CENTER_X*0.75)
+		end;
 		SetCommand=function(self)
 			local text = "";
 			if GAMESTATE:GetCurrentSong() then
@@ -15,15 +17,27 @@ local t = Def.ActorFrame{
 			end;
 			self:settext( text );
 		end;
-		CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-		CurrentCourseChangedMessageCommand=cmd(playcommand,"Set");
-		CurrentTrailP1ChangedMessageCommand=cmd(playcommand,"Set");
-		CurrentTrailP2ChangedMessageCommand=cmd(playcommand,"Set");
-		OffCommand=cmd(bouncebegin,0.35;addy,-SCREEN_CENTER_Y*1.25);
+		CurrentSongChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
+		CurrentCourseChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
+		CurrentTrailP1ChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
+		CurrentTrailP2ChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
+		OffCommand=function(self)
+			self:bouncebegin(0.35):addy(-SCREEN_CENTER_Y*1.25)
+		end;
 	};
 	Font("mentone","24px") .. {
 		Name="Below"; -- was Genre
-		InitCommand=cmd(y,8;zoom,0.8;horizalign,left;vertalign,top;NoStroke;shadowlength,1;maxwidth,SCREEN_CENTER_X*0.75);
+		InitCommand=function(self)
+			self:y(8):zoom(0.8):horizalign(left):vertalign(top):NoStroke():shadowlength(1):maxwidth(SCREEN_CENTER_X*0.75)
+		end;
 		SetCommand=function(self)
 			local text = "";
 			if GAMESTATE:GetCurrentSong() then
@@ -38,9 +52,15 @@ local t = Def.ActorFrame{
 			end;
 			self:settext( text );
 		end;
-		CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-		CurrentCourseChangedMessageCommand=cmd(playcommand,"Set");
-		OffCommand=cmd(bouncebegin,0.35;addy,SCREEN_CENTER_Y*1.25);
+		CurrentSongChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
+		CurrentCourseChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
+		OffCommand=function(self)
+			self:bouncebegin(0.35):addy(SCREEN_CENTER_Y*1.25)
+		end;
 	};
 };
 

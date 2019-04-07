@@ -2,9 +2,15 @@ local ScreenName = Var "LoadingScreen";
 
 local stages = Def.ActorFrame {
 	LoadFont("Common normal") .. {
-		InitCommand=cmd(shadowlength,1;zoom,0.5;NoStroke;visible,true);
-		BeginCommand=cmd(playcommand,"Set";);
-		CurrentSongChangedMessageCommand=cmd(finishtweening;playcommand,"Set";);
+		InitCommand=function(self)
+			self:shadowlength(1):zoom(0.5):NoStroke():visible(true)
+		end;
+		BeginCommand=function(self)
+			self:playcommand("Set")
+		end;
+		CurrentSongChangedMessageCommand=function(self)
+			self:finishtweening():playcommand("Set")
+		end;
 
 		SetCommand=function(self, params)
 			local curStage = GAMESTATE:GetCurrentStage()

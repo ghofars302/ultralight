@@ -47,12 +47,18 @@ for idx, cat in pairs(paneCategoryValues) do
 		-- label
 		LoadFont("Common normal")..{
 			Text=cat.Text;
-			InitCommand=cmd(x,-2;y,((idx-1)*yOffset)-1;halign,1;shadowlength,1;zoom,fontZoom;strokecolor,color("0,0,0,0"));
+			InitCommand=function(self)
+				self:x(-2):y(((idx-1)*yOffset)-1):halign(1):shadowlength(1):zoom(fontZoom):strokecolor(color("0,0,0,0"))
+			end;
 		};
 
 		LoadFont("Common numbers")..{
-			InitCommand=cmd(x,2;y,((idx-1)*yOffset)+2.25;halign,0;shadowlength,1;;zoom,fontZoom;strokecolor,color("0,0,0,0"));
-			BeginCommand=cmd(playcommand,"Set");
+			InitCommand=function(self)
+				self:x(2):y(((idx-1)*yOffset)+2.25):halign(0):shadowlength(1):zoom(fontZoom):strokecolor(color("0,0,0,0"))
+			end;
+			BeginCommand=function(self)
+				self:playcommand("Set")
+			end;
 			SetCommand=function(self)
 				local value = 0;
 
@@ -78,8 +84,12 @@ for idx, cat in pairs(paneCategoryValues) do
 				self:settext( value );
 			end;
 			-- generic song/course changes
-			CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-			CurrentCourseChangedMessageCommand=cmd(playcommand,"Set");
+			CurrentSongChangedMessageCommand=function(self)
+				self:playcommand("Set")
+			end;
+			CurrentCourseChangedMessageCommand=function(self)
+				self:playcommand("Set")
+			end;
 			-- player based changes
 			CurrentStepsP1ChangedMessageCommand=function(self)
 				if Player == PLAYER_1 then self:playcommand("Set"); end;

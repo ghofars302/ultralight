@@ -2,22 +2,32 @@
 return Def.ActorFrame{
 	LoadFont("Common normal")..{
 		Text="BPM";
-		InitCommand=cmd(shadowlength,1;y,-16;zoom,0.5;strokecolor,color("#00000000"));
+		InitCommand=function(self)
+			self:shadowlength(1):y(-16):zoom(0.5):strokecolor(color("#00000000"))
+		end;
 	};
 	Def.SongBPMDisplay {
 		File=THEME:GetPathF("Common", "normal");
 		Name="BPMDisplay";
 		SetCommand=function(self) self:SetFromGameState() end;
-		InitCommand=cmd(shadowlength,1;strokecolor,color("#00000000"));
-		CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-		CurrentCourseChangedMessageCommand=cmd(playcommand,"Set");
+		InitCommand=function(self)
+			self:shadowlength(1):strokecolor(color("#00000000"))
+		end;
+		CurrentSongChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
+		CurrentCourseChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
 	};
 };
 --]]
 
 local bpmLabel = LoadFont("Common normal")..{
 	Text="BPM";
-	InitCommand=cmd(shadowlength,1;y,-16;zoom,0.5;strokecolor,color("#00000000"));
+	InitCommand=function(self)
+		self:shadowlength(1):y(-16):zoom(0.5):strokecolor(color("#00000000"))
+	end;
 };
 
 -- check if players are playing steps with different timingdata.
@@ -37,22 +47,32 @@ local displaySingle = Def.ActorFrame{
 	-- manual bpm displays
 	LoadFont("BPMDisplay", "bpm")..{
 		Name="BPMDisplay";
-		InitCommand=cmd(zoom,0.675;shadowlength,1;strokecolor,color("#00000000"));
+		InitCommand=function(self)
+			self:zoom(0.675):shadowlength(1):strokecolor(color("#00000000"))
+		end;
 	};
 
 	--[[
 	Def.SongBPMDisplay {
 		File=THEME:GetPathF("BPMDisplay", "bpm");
 		Name="BPMDisplay";
-		InitCommand=cmd(zoom,0.675;shadowlength,1);
+		InitCommand=function(self)
+			self:zoom(0.675):shadowlength(1)
+		end;
 		SetCommand=function(self) self:SetFromGameState() end;
-		CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-		CurrentCourseChangedMessageCommand=cmd(playcommand,"Set");
+		CurrentSongChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
+		CurrentCourseChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
 	};
 	--]]
 };
 
-displaySingle.InitCommand=cmd(SetUpdateFunction,UpdateSingleBPM);
+displaySingle.InitCommand=function(self)
+	self:SetUpdateFunction(UpdateSingleBPM)
+end;
 
 if numPlayers == 1 then
 	return displaySingle
@@ -114,15 +134,21 @@ else
 		-- manual bpm displays
 		LoadFont("BPMDisplay", "bpm")..{
 			Name="DisplayP1";
-			InitCommand=cmd(x,-28;zoom,0.6;shadowlength,1;strokecolor,color("#00000000"));
+			InitCommand=function(self)
+				self:x(-28):zoom(0.6):shadowlength(1):strokecolor(color("#00000000"))
+			end;
 		};
 		LoadFont("BPMDisplay", "bpm")..{
 			Name="DisplayP2";
-			InitCommand=cmd(x,28;zoom,0.6;shadowlength,1;strokecolor,color("#00000000"));
+			InitCommand=function(self)
+				self:x(28):zoom(0.6):shadowlength(1):strokecolor(color("#00000000"))
+			end;
 		};
 	};
 
-	displayTwoPlayers.InitCommand=cmd(SetUpdateFunction,Update2PBPM);
+	displayTwoPlayers.InitCommand=function(self)
+		self:SetUpdateFunction(Update2PBPM)
+	end;
 
 	return displayTwoPlayers
 end

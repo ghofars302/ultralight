@@ -3,16 +3,24 @@ local t = Def.ActorFrame{
 		--File=FontPath("mentone","24px");
 		File=THEME:GetPathF("Common", "numbers");
 		Name="BPMDisplay";
-		InitCommand=cmd(y,-1;zoom,0.8;vertalign,bottom;NoStroke;shadowlength,1;maxwidth,SCREEN_CENTER_X*0.75);
+		InitCommand=function(self)
+			self:y(-1):zoom(0.8):vertalign(bottom):NoStroke():shadowlength(1):maxwidth(SCREEN_CENTER_X*0.75)
+		end;
 		SetCommand=function(self)
 			self:SetFromGameState();
 		end;
-		CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-		CurrentCourseChangedMessageCommand=cmd(playcommand,"Set");
+		CurrentSongChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
+		CurrentCourseChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
 	};
 	Font("mentone","24px") .. {
 		Name="Label";
-		InitCommand=cmd(y,1;zoom,0.8;vertalign,top;NoStroke;shadowlength,1;maxwidth,SCREEN_CENTER_X*0.75;settext,"BPM");
+		InitCommand=function(self)
+			self:y(1):zoom(0.8):vertalign(top):NoStroke():shadowlength(1):maxwidth(SCREEN_CENTER_X*0.75):settext("BPM")
+		end;
 		SetCommand=function(self)
 			if GAMESTATE:GetCurrentSong() then
 				-- song-related funnery here
@@ -31,7 +39,9 @@ local t = Def.ActorFrame{
 				self:diffusebottomedge( HSV(192,0,1) );
 			end;
 		end;
-		CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
+		CurrentSongChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
 	};
 };
 

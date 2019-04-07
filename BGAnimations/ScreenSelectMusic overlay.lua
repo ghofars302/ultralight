@@ -1,16 +1,18 @@
 -- this is only used for post-selection so far
 local t = Def.ActorFrame{};
 
-t[#t+1] = Def.Banner{
-	InitCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_TOP-128;visible,false);
+t[#t+1] = Def.Sprite{
+	InitCommand=function(self)
+		self:x(SCREEN_CENTER_X):y(SCREEN_TOP-128):visible(false)
+	end;
 	SetCommand=function(self)
 		if GAMESTATE:IsCourseMode() then
 			if GAMESTATE:GetCurrentCourse() then
-				self:LoadFromCourse(GAMESTATE:GetCurrentCourse());
+				self:LoadBackground(GAMESTATE:GetCurrentCourse():GetBackgroundPath());
 			end;
 		else
 			if GAMESTATE:GetCurrentSong() then
-				self:LoadFromSong(GAMESTATE:GetCurrentSong());
+				self:LoadBackground(GAMESTATE:GetCurrentSong():GetBackgroundPath());
 			end;
 		end;
 
@@ -30,26 +32,46 @@ t[#t+1] = Def.Banner{
 			self:zoomto(w,h)
 		end;
 	end;
-	CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-	CurrentCourseChangedMessageCommand=cmd(playcommand,"Set");
-	ShowPressStartForOptionsCommand=cmd(visible,true;sleep,0.4;decelerate,1;y,SCREEN_CENTER_Y*0.75);
-	OffCommand=cmd(sleep,0.75;bouncebegin,0.375;zoomx,0);
+	CurrentSongChangedMessageCommand=function(self)
+		self:playcommand("Set")
+	end;
+	CurrentCourseChangedMessageCommand=function(self)
+		self:playcommand("Set")
+	end;
+	ShowPressStartForOptionsCommand=function(self)
+		self:visible(true):sleep(0.4):decelerate(1):y(SCREEN_CENTER_Y*0.75)
+	end;
+	OffCommand=function(self)
+		self:sleep(0.75):bouncebegin(0.375):zoomx(0)
+	end;
 };
 
 t[#t+1] = LoadFont("Common normal")..{
-	Text=THEME:GetString("ScreenSelectMusic","OptionsMessage");
-	InitCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y*1.35;vertalign,bottom;NoStroke;shadowlength,1;shadowcolor,color("0,0,0,0.375"));
-	OnCommand=cmd(visible,false);
-	ShowPressStartForOptionsCommand=cmd(hibernate,0.5;visible,true;zoom,1.5;decelerate,1;zoom,1);
-	ShowEnteringOptionsCommand=cmd(settext,THEME:GetString("ScreenSelectMusic","EnteringOptions"););
-	OffCommand=cmd(sleep,0.8;bouncebegin,0.375;zoomy,0);
+	Text="Press [ENTER] to enter Player Options";
+	InitCommand=function(self)
+		self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y*1.35):vertalign(bottom):NoStroke():shadowlength(1):shadowcolor(color("0,0,0,0.375"))
+	end;
+	OnCommand=function(self)
+		self:visible(false)
+	end;
+	ShowPressStartForOptionsCommand=function(self)
+		self:hibernate(0.5):visible(true):zoom(1.5):decelerate(1):zoom(1)
+	end;
+	ShowEnteringOptionsCommand=function(self)
+		self:settext("Entering Player Options...")
+	end;
+	OffCommand=function(self)
+		self:sleep(0.8):bouncebegin(0.375):zoomy(0)
+	end;
 };
 
 -- todo: add player information?
 
 t[#t+1] = LoadFont("Common normal")..{
 	Name="Title";
-	InitCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y+12;diffusealpha,0;zoom,1.25;valign,1;strokecolor,color("#00000000"));
+	InitCommand=function(self)
+		self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y+12):diffusealpha(0):zoom(1.25):valign(1):strokecolor(color("#00000000"))
+	end;
 	SetCommand=function(self)
 		local SongOrCourse, text = nil, "";
 		if GAMESTATE:IsCourseMode() then
@@ -62,16 +84,26 @@ t[#t+1] = LoadFont("Common normal")..{
 		end;
 		self:settext(text);
 	end;
-	CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-	CurrentCourseChangedMessageCommand=cmd(playcommand,"Set");
-	ShowPressStartForOptionsCommand=cmd(linear,1;diffusealpha,1;zoom,1);
-	OffCommand=cmd(sleep,1.5;bouncebegin,0.5;zoomy,0);
+	CurrentSongChangedMessageCommand=function(self)
+		self:playcommand("Set")
+	end;
+	CurrentCourseChangedMessageCommand=function(self)
+		self:playcommand("Set")
+	end;
+	ShowPressStartForOptionsCommand=function(self)
+		self:linear(1):diffusealpha(1):zoom(1)
+	end;
+	OffCommand=function(self)
+		self:sleep(1.5):bouncebegin(0.5):zoomy(0)
+	end;
 };
 
 -- todo: localize stage text stuff
 t[#t+1] = LoadFont("Common normal")..{
 	Name="Secondary";
-	InitCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y+10;diffusealpha,0;zoom,1;valign,0;strokecolor,color("#00000000"));
+	InitCommand=function(self)
+		self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y+10):diffusealpha(0):zoom(1):valign(0):strokecolor(color("#00000000"))
+	end;
 	SetCommand=function(self)
 		local SongOrCourse, text = nil, "";
 		if GAMESTATE:IsCourseMode() then
@@ -92,10 +124,20 @@ t[#t+1] = LoadFont("Common normal")..{
 		end;
 		self:settext(text);
 	end;
-	CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-	CurrentCourseChangedMessageCommand=cmd(playcommand,"Set");
-	ShowPressStartForOptionsCommand=cmd(linear,1;diffusealpha,1;zoom,0.8);
-	OffCommand=cmd(sleep,1.55;bouncebegin,0.5;zoomy,0);
+	CurrentSongChangedMessageCommand=function(self)
+		self:playcommand("Set")
+	end;
+	CurrentCourseChangedMessageCommand=function(self)
+		self:playcommand("Set")
+	end;
+	ShowPressStartForOptionsCommand=function(self)
+		self:linear(1):diffusealpha(1):zoom(0.8)
+	end;
+	OffCommand=function(self)
+		self:sleep(1.55):bouncebegin(0.5):zoomy(0)
+	end;
 };
+
+t[#t+1] = LoadActor("_bottombar")
 
 return t;

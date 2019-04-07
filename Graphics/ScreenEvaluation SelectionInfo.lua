@@ -1,5 +1,7 @@
 return LoadFont("Common normal") .. {
-	InitCommand=cmd(zoom,0.5;shadowlength,1;strokecolor,color("#00000033");maxwidth,WideScale(512,640));
+	InitCommand=function(self)
+		self:zoom(0.5):shadowlength(1):strokecolor(color("#00000033")):maxwidth(WideScale(512,640))
+	end;
 	BeginCommand=function(self)
 		local Selection, text = nil, "";
 		if GAMESTATE:IsCourseMode() then

@@ -19,24 +19,36 @@ return Def.ActorFrame {
 	-- background stuff
 	Def.Quad{
 		Name="Horizontal";
-		InitCommand=cmd(x,48;y,16;zoomto,SCREEN_CENTER_X,32;diffuse,color("1,1,1,0.175");blend,Blend.Add;vertalign,bottom;fadeleft,0.25;faderight,0.5);
+		InitCommand=function(self)
+			self:x(48):y(16):zoomto(SCREEN_CENTER_X,32):diffuse(color("1,1,1,0.175")):blend(Blend.Add):vertalign(bottom):fadeleft(0.25):faderight(0.5)
+		end;
 	};
 	Def.Quad{
 		Name="Vertical";
-		InitCommand=cmd(x,48;y,16;zoomto,SCREEN_CENTER_X,32;diffuse,color("1,1,1,0.05");blend,Blend.Add;vertalign,bottom;fadetop,0.85;);
+		InitCommand=function(self)
+			self:x(48):y(16):zoomto(SCREEN_CENTER_X,32):diffuse(color("1,1,1,0.05")):blend(Blend.Add):vertalign(bottom):fadetop(0.85)
+		end;
 	};
 
 	-- light stuff
 	Def.Quad{
-		InitCommand=cmd(x,-80;zoomto,8,24;diffuse,HSVA(192,0.8,1,0.5);diffusebottomedge,HSVA(192,0.8,0.925,1));
+		InitCommand=function(self)
+			self:x(-80):zoomto(8,24):diffuse(HSVA(192,0.8,1,0.5)):diffusebottomedge(HSVA(192,0.8,0.925,1))
+		end;
 	};
 	Def.Quad{
-		InitCommand=cmd(x,-80;zoomto,8,24;blend,Blend.Add;diffusealpha,0.25);
-		OnCommand=cmd(diffuseshift;effectcolor1,color("1,1,1,1");effectcolor2,color("1,1,1,0.3"););
+		InitCommand=function(self)
+			self:x(-80):zoomto(8,24):blend(Blend.Add):diffusealpha(0.25)
+		end;
+		OnCommand=function(self)
+			self:diffuseshift():effectcolor1(color("1,1,1,1")):effectcolor2(color("1,1,1,0.3"))
+		end;
 	};
 
 	-- bottom line
 	Def.Quad{
-		InitCommand=cmd(x,48;y,16;zoomto,SCREEN_CENTER_X,2;diffuse,color("1,1,1,0.5");fadeleft,0.25;faderight,0.25);
+		InitCommand=function(self)
+			self:x(48):y(16):zoomto(SCREEN_CENTER_X,2):diffuse(color("1,1,1,0.5")):fadeleft(0.25):faderight(0.25)
+		end;
 	};
 };

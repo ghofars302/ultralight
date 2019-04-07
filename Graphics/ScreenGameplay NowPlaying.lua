@@ -1,8 +1,12 @@
 local t = Def.ActorFrame{
 	Font("mentone","24px") .. {
 		Name="Genre";
-		InitCommand=cmd(zoom,0.5;NoStroke;shadowlength,1;maxwidth,784);
-		OnCommand=cmd(playcommand,"Set");
+		InitCommand=function(self)
+			self:zoom(0.5):NoStroke():shadowlength(1):maxwidth(784)
+		end;
+		OnCommand=function(self)
+			self:playcommand("Set")
+		end;
 		SetCommand=function(self)
 			local text = "";
 			if GAMESTATE:IsCourseMode() then
@@ -39,7 +43,9 @@ local t = Def.ActorFrame{
 			end;
 			self:settext( text );
 		end;
-		CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
+		CurrentSongChangedMessageCommand=function(self)
+			self:playcommand("Set")
+		end;
 	};
 };
 

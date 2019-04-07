@@ -1,24 +1,48 @@
 local t = Def.ActorFrame{
 	Def.Quad{
 		Name="TopLine";
-		InitCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y*0.35;addy,-SCREEN_CENTER_Y;zoomto,SCREEN_WIDTH,2;diffuseleftedge,HSV(192,1,0.8););
-		OnCommand=cmd(linear,0.3;addy,SCREEN_CENTER_Y);
-		OffCommand=cmd(linear,0.3;addy,-SCREEN_CENTER_Y);
-		CancelCommand=cmd(linear,0.3;diffuserightedge,HSV(192,1,0.8);diffuseleftedge,HSV(192,0,1););
+		InitCommand=function(self)
+			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y*0.35):addy(-SCREEN_CENTER_Y):zoomto(SCREEN_WIDTH,2):diffuseleftedge(HSV(192,1,0.8))
+		end;
+		OnCommand=function(self)
+			self:linear(0.3):addy(SCREEN_CENTER_Y)
+		end;
+		OffCommand=function(self)
+			self:linear(0.3):addy(-SCREEN_CENTER_Y)
+		end;
+		CancelCommand=function(self)
+			self:linear(0.3):diffuserightedge(HSV(192,1,0.8)):diffuseleftedge(HSV(192,0,1))
+		end;
 	};
 	Font("mentone","24px") .. {
 		Text=HeaderString("MoreOptions");
-		InitCommand=cmd(x,SCREEN_LEFT+32;y,SCREEN_CENTER_Y*0.33;addy,-SCREEN_CENTER_Y;zoom,0.8;halign,0;valign,1;shadowlength,1;strokecolor,color("0,0,0,0"));
-		OnCommand=cmd(linear,0.5;addy,SCREEN_CENTER_Y;diffusebottomedge,HSV(192,0.2,0.8));
-		OffCommand=cmd(linear,0.3;addy,-SCREEN_CENTER_Y);
-		CancelCommand=cmd(bouncebegin,0.3;zoomy,0;);
+		InitCommand=function(self)
+			self:x(SCREEN_LEFT+32):y(SCREEN_CENTER_Y*0.33):addy(-SCREEN_CENTER_Y):zoom(0.8):halign(0):valign(1):shadowlength(1):strokecolor(color("0,0,0,0"))
+		end;
+		OnCommand=function(self)
+			self:linear(0.5):addy(SCREEN_CENTER_Y):diffusebottomedge(HSV(192,0.2,0.8))
+		end;
+		OffCommand=function(self)
+			self:linear(0.3):addy(-SCREEN_CENTER_Y)
+		end;
+		CancelCommand=function(self)
+			self:bouncebegin(0.3):zoomy(0)
+		end;
 	};
 	Def.Quad{
 		Name="BottomLine";
-		InitCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y*1.55;addy,SCREEN_CENTER_Y;zoomto,SCREEN_WIDTH,2;diffuserightedge,HSV(192,1,0.8););
-		OnCommand=cmd(linear,0.3;addy,-SCREEN_CENTER_Y);
-		OffCommand=cmd(linear,0.3;addy,SCREEN_CENTER_Y);
-		CancelCommand=cmd(linear,0.3;diffuseleftedge,HSV(192,1,0.8);diffuserightedge,HSV(192,0,1););
+		InitCommand=function(self)
+			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y*1.55):addy(SCREEN_CENTER_Y):zoomto(SCREEN_WIDTH,2):diffuserightedge(HSV(192,1,0.8))
+		end;
+		OnCommand=function(self)
+			self:linear(0.3):addy(-SCREEN_CENTER_Y)
+		end;
+		OffCommand=function(self)
+			self:linear(0.3):addy(SCREEN_CENTER_Y)
+		end;
+		CancelCommand=function(self)
+			self:linear(0.3):diffuseleftedge(HSV(192,1,0.8)):diffuserightedge(HSV(192,0,1))
+		end;
 	};
 };
 

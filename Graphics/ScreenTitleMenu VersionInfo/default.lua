@@ -1,10 +1,16 @@
 return Def.ActorFrame{
 	LoadActor("_arrow")..{
-		InitCommand=cmd(y,-32);
-		OffCommand=cmd(linear,0.25;rotationz,-45;sleep,0.1;accelerate,0.25;addy,-SCREEN_HEIGHT);
+		InitCommand=function(self)
+			self:y(-32)
+		end;
+		OffCommand=function(self)
+			self:linear(0.25):rotationz(-45):sleep(0.1):accelerate(0.25):addy(-SCREEN_HEIGHT)
+		end;
 	};
 	LoadActor("_fill")..{
-		InitCommand=cmd(y,-32);
+		InitCommand=function(self)
+			self:y(-32)
+		end;
 		BeginCommand=function(self)
 			local fillColor;
 			local alpha = 0.5;
@@ -22,10 +28,14 @@ return Def.ActorFrame{
 			end;
 			self:diffuse(fillColor);
 		end;
-		OffCommand=cmd(linear,0.25;rotationz,-45;sleep,0.1;accelerate,0.25;addy,-SCREEN_HEIGHT);
+		OffCommand=function(self)
+			self:linear(0.25):rotationz(-45):sleep(0.1):accelerate(0.25):addy(-SCREEN_HEIGHT)
+		end;
 	};
 	Font("mentone","24px")..{
-		InitCommand=cmd(shadowlength,1;zoom,0.75;y,6;NoStroke);
+		InitCommand=function(self)
+			self:shadowlength(1):zoom(0.75):y(6):NoStroke()
+		end;
 		BeginCommand=function(self)
 			local progtext = ProductID()
 			if ProductFamily() ~= nil then
@@ -33,16 +43,26 @@ return Def.ActorFrame{
 			end
 			self:settext(progtext)
 		end;
-		OffCommand=cmd(linear,0.25;zoomx,0);
+		OffCommand=function(self)
+			self:linear(0.25):zoomx(0)
+		end;
 	};
 	Font("mentone","24px")..{
 		Text=ProductVersion();
-		InitCommand=cmd(shadowlength,1;zoom,0.5;y,22;NoStroke);
-		OffCommand=cmd(linear,0.25;zoomx,0);
+		InitCommand=function(self)
+			self:shadowlength(1):zoom(0.5):y(22):NoStroke()
+		end;
+		OffCommand=function(self)
+			self:linear(0.25):zoomx(0)
+		end;
 	};
 	Font("mentone","24px")..{
 		Text=VersionDate().." @ "..VersionTime();
-		InitCommand=cmd(shadowlength,1;zoom,0.4;y,34;NoStroke);
-		OffCommand=cmd(linear,0.25;zoomy,0);
+		InitCommand=function(self)
+			self:shadowlength(1):zoom(0.4):y(34):NoStroke()
+		end;
+		OffCommand=function(self)
+			self:linear(0.25):zoomy(0)
+		end;
 	};
 };

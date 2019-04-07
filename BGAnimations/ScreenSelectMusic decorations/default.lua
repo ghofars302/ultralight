@@ -27,24 +27,40 @@ t[#t+1] = StandardDecorationFromFileOptional("CourseContentsList","CourseContent
 if not GAMESTATE:IsCourseMode() then
 	t[#t+1] = Def.StepsDisplayList {
 		Name="StepsDisplayList";
-		InitCommand=cmd(xy,(SCREEN_CENTER_X*0.75/2)+28,SCREEN_CENTER_Y*1.275);
-		OffCommand=cmd(bouncebegin,0.375;addx,-SCREEN_CENTER_X*1.25);
+		InitCommand=function(self)
+			self:xy((SCREEN_CENTER_X*0.75/2)+28,SCREEN_CENTER_Y*1.275)
+		end;
+		OffCommand=function(self)
+			self:bouncebegin(0.375):addx(-SCREEN_CENTER_X*1.25)
+		end;
 		CurrentSongChangedMessageCommand=function(self)
 			self:visible(GAMESTATE:GetCurrentSong() ~= nil);
 		end;
 		CursorP1 = Def.ActorFrame {
-			BeginCommand=cmd(visible,true);
+			BeginCommand=function(self)
+				self:visible(true)
+			end;
 			StepsSelectedMessageCommand=function( self, param ) 
 				if param.Player ~= "PlayerNumber_P1" then return end;
 				self:visible(false);
 			end;
 			children={
 				LoadActor( "StepsDisplayList highlight" ) .. {
-					InitCommand=cmd(addx,-10;diffusealpha,0.3);
-					BeginCommand=cmd(player,"PlayerNumber_P1");
-					OnCommand=cmd(playcommand,"UpdateAlpha");
-					CurrentStepsP1ChangedMessageCommand=cmd(playcommand,"UpdateAlpha");
-					CurrentStepsP2ChangedMessageCommand=cmd(playcommand,"UpdateAlpha");
+					InitCommand=function(self)
+						self:addx(-10):diffusealpha(0.3)
+					end;
+					BeginCommand=function(self)
+						self:player("PlayerNumber_P1")
+					end;
+					OnCommand=function(self)
+						self:playcommand("UpdateAlpha")
+					end;
+					CurrentStepsP1ChangedMessageCommand=function(self)
+						self:playcommand("UpdateAlpha")
+					end;
+					CurrentStepsP2ChangedMessageCommand=function(self)
+						self:playcommand("UpdateAlpha")
+					end;
 					UpdateAlphaCommand=function(self)
 						local s1 = GAMESTATE:GetCurrentSteps(PLAYER_1);
 						local s2 = GAMESTATE:GetCurrentSteps(PLAYER_2);
@@ -63,11 +79,17 @@ if not GAMESTATE:IsCourseMode() then
 					end;
 				};
 				Def.ActorFrame {
-					InitCommand=cmd(x,-130;);
+					InitCommand=function(self)
+						self:x(-130)
+					end;
 					children={
 						Font("mentone","24px") .. {
-							InitCommand=cmd(y,-3;settext,"P1";diffuse,PlayerColor("PlayerNumber_P1");shadowlength,1;zoom,0.5;shadowcolor,color("#00000044");NoStroke);
-							BeginCommand=cmd(player,"PlayerNumber_P1";);
+							InitCommand=function(self)
+								self:y(-3):settext("P1"):diffuse(PlayerColor("PlayerNumber_P1")):shadowlength(1):zoom(0.5):shadowcolor(color("#00000044")):NoStroke()
+							end;
+							BeginCommand=function(self)
+								self:player("PlayerNumber_P1")
+							end;
 							PlayerJoinedMessageCommand=function(self,param )
 								if param.Player ~= "PlayerNumber_P1" then return end;
 								self:visible( true );
@@ -78,18 +100,30 @@ if not GAMESTATE:IsCourseMode() then
 			};
 		};
 		CursorP2 = Def.ActorFrame {
-			BeginCommand=cmd(visible,true);
+			BeginCommand=function(self)
+				self:visible(true)
+			end;
 			StepsSelectedMessageCommand=function( self, param ) 
 				if param.Player ~= "PlayerNumber_P2" then return end;
 				self:visible(false);
 			end;
 			children={
 				LoadActor( "StepsDisplayList highlight" ) .. {
-					InitCommand=cmd(addx,-10;zoomx,-1;diffusealpha,0.3);
-					BeginCommand=cmd(player,"PlayerNumber_P2");
-					OnCommand=cmd(playcommand,"UpdateAlpha");
-					CurrentStepsP1ChangedMessageCommand=cmd(playcommand,"UpdateAlpha");
-					CurrentStepsP2ChangedMessageCommand=cmd(playcommand,"UpdateAlpha");
+					InitCommand=function(self)
+						self:addx(-10):zoomx(-1):diffusealpha(0.3)
+					end;
+					BeginCommand=function(self)
+						self:player("PlayerNumber_P2")
+					end;
+					OnCommand=function(self)
+						self:playcommand("UpdateAlpha")
+					end;
+					CurrentStepsP1ChangedMessageCommand=function(self)
+						self:playcommand("UpdateAlpha")
+					end;
+					CurrentStepsP2ChangedMessageCommand=function(self)
+						self:playcommand("UpdateAlpha")
+					end;
 					UpdateAlphaCommand=function(self)
 						local s1 = GAMESTATE:GetCurrentSteps(PLAYER_1);
 						local s2 = GAMESTATE:GetCurrentSteps(PLAYER_2);
@@ -108,11 +142,17 @@ if not GAMESTATE:IsCourseMode() then
 					end;
 				};
 				Def.ActorFrame {
-					InitCommand=cmd(x,-127;);
+					InitCommand=function(self)
+						self:x(-127)
+					end;
 					children={
 						Font("mentone","24px") .. {
-							InitCommand=cmd(y,3;settext,"P2";diffuse,PlayerColor("PlayerNumber_P2");shadowlength,1;zoom,0.5;shadowcolor,color("#00000044");NoStroke);
-							BeginCommand=cmd(player,"PlayerNumber_P2";);
+							InitCommand=function(self)
+								self:y(3):settext("P2"):diffuse(PlayerColor("PlayerNumber_P2")):shadowlength(1):zoom(0.5):shadowcolor(color("#00000044")):NoStroke()
+							end;
+							BeginCommand=function(self)
+								self:player("PlayerNumber_P2")
+							end;
 							PlayerJoinedMessageCommand=function(self,param )
 								if param.Player ~= "PlayerNumber_P2" then return end;
 								self:visible( true );

@@ -13,7 +13,9 @@ local LabelMinZoom = THEME:GetMetric("Combo", "LabelMinZoom");
 local LabelMaxZoom = THEME:GetMetric("Combo", "LabelMaxZoom");
 
 local t = Def.ActorFrame {
-	InitCommand=cmd(vertalign,bottom);
+	InitCommand=function(self)
+		self:vertalign(bottom)
+	end;
 	LoadFont( "Combo", "numbers" ) .. {
 		Name="Number";
 		OnCommand = THEME:GetMetric("Combo", "NumberOnCommand");
@@ -30,7 +32,7 @@ local t = Def.ActorFrame {
 	end;
 	ToastyAchievedMessageCommand=function(self,params)
 		if params.PlayerNumber == player then
-			(cmd(thump,2;effectclock,'beat'))(self);
+			self:thump(2):effectclock('beat');
 		end;
 	end;
 	ComboCommand=function(self, param)
@@ -77,12 +79,12 @@ local t = Def.ActorFrame {
 			c.Number:diffuse(PlayerColor(player));
 			c.Number:strokecolor(Brightness(PlayerColor(player),0.5));
 			c.Number:stopeffect();
-			(cmd(diffuse,PlayerColor(player);))(c.Label);
+			c.Label:diffuse(PlayerColor(player));
 		else
 			c.Number:diffuse(color("#ff0000"));
 			c.Number:strokecolor(color("#880000"));
 			c.Number:stopeffect();
-			(cmd(diffuse,Color("Red");))(c.Label);
+			c.Label:diffuse(Color("Red"));
 		end
 
 		-- Pulse

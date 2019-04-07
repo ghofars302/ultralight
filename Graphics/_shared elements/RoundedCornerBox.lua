@@ -23,19 +23,53 @@ local EdgePosY = (Height/2);
 local CornerPosX = ((Width/2)-4);
 
 return Def.ActorFrame{
-	BeginCommand=cmd(runcommandsonleaves,cmd(diffuse,Color));
 	-- top
-	Def.Quad { InitCommand=cmd(zoomto,EdgeWidth-8,8;y,-EdgePosY); };
+	
+	Def.Quad {
+		 InitCommand=function(self)
+			self:zoomto(EdgeWidth-8,8):y(-EdgePosY)
+		end
+	};
 	-- middle
-	Def.Quad { InitCommand=cmd(zoomto,Width,Height-8); };
+	
+	Def.Quad {
+		 InitCommand=function(self)
+			self:zoomto(Width,Height-8)
+		end
+	};
 	-- bottom
-	Def.Quad { InitCommand=cmd(zoomto,EdgeWidth-8,8;y,EdgePosY); };
+	
+	Def.Quad {
+		 InitCommand=function(self)
+			self:zoomto(EdgeWidth-8,8):y(EdgePosY)
+		end
+	};
 	 -- top left
-	LoadActor(corner)..{ InitCommand=cmd(x,-CornerPosX;y,-EdgePosY); };
+	
+	LoadActor(corner)..{
+		 InitCommand=function(self)
+			self:x(-CornerPosX):y(-EdgePosY)
+		end
+	};
 	 -- top right
-	LoadActor(corner)..{ InitCommand=cmd(x,CornerPosX;y,-EdgePosY;rotationz,90); };
+	
+	LoadActor(corner)..{
+		 InitCommand=function(self)
+			self:x(CornerPosX):y(-EdgePosY):rotationz(90)
+		end
+	};
 	 -- bottom left
-	LoadActor(corner)..{ InitCommand=cmd(x,-CornerPosX;y,EdgePosY;rotationz,-90); };
+	
+	LoadActor(corner)..{
+		 InitCommand=function(self)
+			self:x(-CornerPosX):y(EdgePosY):rotationz(-90)
+		end
+	};
 	 -- bottom right
-	LoadActor(corner)..{ InitCommand=cmd(x,CornerPosX;y,EdgePosY;rotationz,180); };
+	
+	LoadActor(corner)..{
+		 InitCommand=function(self)
+			self:x(CornerPosX):y(EdgePosY):rotationz(180)
+		end
+	};
 };

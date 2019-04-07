@@ -5,7 +5,9 @@ t[#t+1] = StandardDecorationFromFileOptional("StageDisplay","StageDisplay");
 local function GraphDisplay( pn )
 	local t = Def.ActorFrame {
 		Def.GraphDisplay {
-			InitCommand=cmd(Load,"GraphDisplay";);
+			InitCommand=function(self)
+				self:Load("GraphDisplay")
+			end;
 			BeginCommand=function(self)
 				local ss = SCREENMAN:GetTopScreen():GetStageStats();
 				self:Set( ss, ss:GetPlayerStageStats(pn) );
@@ -26,7 +28,9 @@ end
 local function ComboGraph( pn )
 	local t = Def.ActorFrame {
 		Def.ComboGraph {
-			InitCommand=cmd(Load,"ComboGraph"..ToEnumShortString(pn););
+			InitCommand=function(self)
+				self:Load("ComboGraph"..ToEnumShortString(pn))
+			end;
 			BeginCommand=function(self)
 				local ss = SCREENMAN:GetTopScreen():GetStageStats();
 				self:Set( ss, ss:GetPlayerStageStats(pn) );
@@ -51,7 +55,9 @@ if ShowStandardDecoration("StepsDisplay") then
 	for pn in ivalues(PlayerNumber) do
 		if IsPlayerValid(pn) then
 			local t2 = Def.StepsDisplay {
-					InitCommand=cmd(Load,"StepsDisplayEvaluation",pn;SetFromGameState,pn;);
+					InitCommand=function(self)
+						self:Load("StepsDisplayEvaluation",pn):SetFromGameState(pn)
+					end;
 				};
 			t[#t+1] = StandardDecorationFromTable( "StepsDisplay" .. ToEnumShortString(pn), t2 );
 		end;
@@ -66,7 +72,9 @@ for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
 			self:name(MetricsName); 
 			ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen"); 
 		end;
-		BeginCommand=cmd(playcommand,"Set");
+		BeginCommand=function(self)
+			self:playcommand("Set")
+		end;
 		SetCommand=function(self)
 			local tStats = THEME:GetMetric(Var "LoadingScreen", "Summary") and STATSMAN:GetAccumPlayedStageStats() or STATSMAN:GetCurStageStats();
 			tStats = tStats:GetPlayerStageStats(pn);
@@ -87,7 +95,9 @@ for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
 			self:name(MetricsName); 
 			ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen"); 
 		end;
-		BeginCommand=cmd(playcommand,"Set");
+		BeginCommand=function(self)
+			self:playcommand("Set")
+		end;
 		SetCommand=function(self)
 			local tStats = THEME:GetMetric(Var "LoadingScreen", "Summary") and STATSMAN:GetAccumPlayedStageStats() or STATSMAN:GetCurStageStats();
 			tStats = tStats:GetPlayerStageStats(pn);
@@ -120,7 +130,9 @@ for i=1,#judgeLines do
 			local yPos = THEME:GetMetric(Var "LoadingScreen",metric.."Y")+4;
 			t[#t+1] = LoadFont("Common numbers")..{
 				Name=judge.."Percent"..ToEnumShortString(pn); -- e.g. "W1PercentP1"
-				InitCommand=cmd(x,xPos;y,yPos;zoom,0.45;diffuse,TapNoteScoreToColor(tns););
+				InitCommand=function(self)
+					self:x(xPos):y(yPos):zoom(0.45):diffuse(TapNoteScoreToColor(tns))
+				end;
 				BeginCommand=function(self)
 					self:visible(GAMESTATE:IsPlayerEnabled(pn))
 					self:addx(pn == PLAYER_1 and 52 or -75);

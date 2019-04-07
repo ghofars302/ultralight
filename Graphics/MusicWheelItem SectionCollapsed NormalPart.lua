@@ -18,11 +18,15 @@ return Def.ActorFrame {
 
 	-- light thing
 	Def.Quad{
-		InitCommand=cmd(x,-80;zoomto,8,24;diffuse,HSVA(192,0.8,1,0.5);diffusebottomedge,HSVA(192,0.8,0.925,1));
+		InitCommand=function(self)
+			self:x(-80):zoomto(8,24):diffuse(HSVA(192,0.8,1,0.5)):diffusebottomedge(HSVA(192,0.8,0.925,1))
+		end;
 	};
 
 	-- bottom line
 	Def.Quad{
-		InitCommand=cmd(x,48;y,16;zoomto,SCREEN_CENTER_X,2;diffuse,color("1,1,1,0.5");fadeleft,0.25;faderight,0.25);
+		InitCommand=function(self)
+			self:x(48):y(16):zoomto(SCREEN_CENTER_X,2):diffuse(color("1,1,1,0.5")):fadeleft(0.25):faderight(0.25)
+		end;
 	};
 };

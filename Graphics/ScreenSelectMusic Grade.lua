@@ -11,7 +11,9 @@ else
 end;
 
 return LoadFont("Common normal")..{
-	InitCommand=cmd(shadowlength,1;zoom,0.65;strokecolor,color("0.2,0.2,0.2,0.05");halign,Player==PLAYER_1 and 1 or 0);
+	InitCommand=function(self)
+		self:shadowlength(1):zoom(0.65):strokecolor(color("0.2,0.2,0.2,0.05")):halign(Player==PLAYER_1 and 1 or 0)
+	end;
 	BeginCommand=function(self)
 		self:visible( GAMESTATE:IsHumanPlayer(Player) );
 	end;
@@ -50,8 +52,12 @@ return LoadFont("Common normal")..{
 			self:visible(false);
 		end;
 	end;
-	CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-	CurrentCourseChangedMessageCommand=cmd(playcommand,"Set");
+	CurrentSongChangedMessageCommand=function(self)
+		self:playcommand("Set")
+	end;
+	CurrentCourseChangedMessageCommand=function(self)
+		self:playcommand("Set")
+	end;
 	CurrentStepsP1ChangedMessageCommand=function(self)
 		if Player == PLAYER_1 then self:playcommand("Set"); end;
 	end;

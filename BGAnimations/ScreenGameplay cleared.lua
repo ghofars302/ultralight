@@ -1,4 +1,9 @@
 local x = Def.ActorFrame{
+    Def.Quad{
+		InitCommand=function(self)
+			self:FullScreen():diffuse(HSV(192,1,0.05)):diffusebottomedge(HSV(192,0.75,0.125))
+		end
+	};
 	Def.Quad{
 		Name="TopLine";
 		InitCommand=function(self)
@@ -7,7 +12,8 @@ local x = Def.ActorFrame{
 		OnCommand=function(self)
 			self:decelerate(0.75):cropleft(0)
 		end;
-		OffCommand=function(self)
+        OffCommand=function(self)
+            self:sleep(0.3)
 			self:bouncebegin(0.5):cropright(1)
 		end;
 	};
@@ -19,16 +25,18 @@ local x = Def.ActorFrame{
 		OnCommand=function(self)
 			self:decelerate(0.75):cropright(0)
 		end;
-		OffCommand=function(self)
+        OffCommand=function(self)
+            self:sleep(0.3)
 			self:bouncebegin(0.5):cropleft(1)
 		end;
 	};
 	Font("mentone","24px")..{
-		Text=ScreenString("LoadProfiles");
+		Text="Stage Cleared";
 		InitCommand=function(self)
 			self:x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y):diffuse(color("1,1,1,1")):shadowlength(1):strokecolor(color("0,0,0,0"))
 		end;
-		OffCommand=function(self)
+        OffCommand=function(self)
+            self:sleep(1)
 			self:linear(0.15):diffusealpha(0)
 		end;
 	};
